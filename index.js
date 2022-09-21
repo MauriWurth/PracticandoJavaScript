@@ -1,3 +1,6 @@
+let eventos = [];
+
+
 let invitados = [];
 
 let form = document.getElementById("invitadoData");
@@ -17,7 +20,7 @@ form.addEventListener("submit", function (e) {
   if (checkAge(edad)) {
     invitados.push(new Invitado(nombre, edad, genero, colaboracion))
     drawTable()
-    alert('Invitación creada correctamente.')
+    // alert('Invitación creada correctamente.')
   } else {
     alert('Tu edad no está permitida.')
   }
@@ -35,6 +38,13 @@ form.addEventListener("submit", function (e) {
 //   (previousValue, currentValue) => previousValue + currentValue.colaboracion,
 //   0
 // );
+
+if (localStorage.getItem("jsonInvitados")) {
+  // transformo el objeto a Json
+  invitados = JSON.parse(localStorage.getItem("jsonInvitados"));
+  drawTable();
+  //despues de acceder al dato. la accedo al boton cerrar sesion
+}
 
 function checkAge(age) {
   if ((age >= 18) && (age <= 100)) {
@@ -71,3 +81,17 @@ function drawTable(){
   }
   table.innerHTML = data;
 }
+
+let btnAddToJSON = document.getElementById('addToJSON');
+btnAddToJSON.addEventListener('click', function (e) {
+  e.preventDefault();
+  let JSONInvitados = JSON.stringify(invitados);
+  localStorage.setItem('jsonInvitados', JSONInvitados);
+});
+
+let btnDeleteJSON = document.getElementById('deleteJSON');
+btnDeleteJSON.addEventListener('click', function (e) {
+  e.preventDefault();
+  localStorage.clear();
+  location.reload();
+});

@@ -15,30 +15,34 @@
     <div>
         <h1>Bienvenidos a nuestro servicio de gestión de eventos</h1>
     </div>
+    
     <div>
         <form action="" method="get" id="invitadoData">
+            <h2>Agregar invitados al evento:</h2>
             <label for="Nombre">Nombre:</label>
             <input type="text" name="nombre" id="nombre">
             <label for="Edad">Edad:</label>
             <input type="number" name="edad" id="edad">
-            <label for="Género">Género:</label>
+            <label for="Género">Género</label>
             <select name="genero" id="genero">
                 <option value="m">Masculino</option>
                 <option value="f">Femenino</option>
                 <option value="n">No sabe</option>
             </select>
             <label for="Colaboración">Colaboración:</label>
-            <input type="number" name="colaboracion" id="colaboracion">
+            <input type="number" name="colaboracion" id="colaboracion" min="0">
             <input type="submit" value="Agregar Invitado" id="agregarInvitado">
         </form>
-
     </div>
-
+    
     <div>
         <table>
             
         </table>
     </div>
+    <input type="submit" value="Guardar en la base de datos" id="addToJSON">
+    <input type="submit" value="Limpiar base de datos" id="deleteJSON">
+
     <script src="./index.js"></script>
 </body>
 
