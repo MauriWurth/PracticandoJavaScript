@@ -19,25 +19,15 @@ form.addEventListener("submit", function (e) {
   let colaboracion = parseInt(document.getElementById('colaboracion').value);
   if (checkAge(edad)) {
     invitados.push(new Invitado(nombre, edad, genero, colaboracion))
-    drawTable()
+    drawTable();
     // alert('Invitación creada correctamente.')
+    showToast();
   } else {
     alert('Tu edad no está permitida.')
   }
 })
 
-// let termino;
-// if (invitados.length === 1) {
-//   termino = 'mesa'
-// } else {
-//   termino = 'mesas'
-// }
-// console.table(invitados);
-// console.log(`Se van a necesitar en total ${Math.ceil(invitados.length / 6)} ${termino}.`);
-// const totalColaboracion = invitados.reduce(
-//   (previousValue, currentValue) => previousValue + currentValue.colaboracion,
-//   0
-// );
+
 
 if (localStorage.getItem("jsonInvitados")) {
   // transformo el objeto a Json
@@ -61,7 +51,7 @@ function Invitado(nombre, edad, genero, colaboracion) {
   this.colaboracion = colaboracion;
 }
 
-function drawTable(){
+function drawTable() {
   // Dibujando en el HTML
   const table = document.querySelector('table');
   let data = `<tr>
@@ -87,11 +77,39 @@ btnAddToJSON.addEventListener('click', function (e) {
   e.preventDefault();
   let JSONInvitados = JSON.stringify(invitados);
   localStorage.setItem('jsonInvitados', JSONInvitados);
+  showSwal('Agregado a la base de datos', 'Fue agregado correctamente', 'success')
 });
 
 let btnDeleteJSON = document.getElementById('deleteJSON');
 btnDeleteJSON.addEventListener('click', function (e) {
   e.preventDefault();
-  localStorage.clear();
-  location.reload();
+  showSwal('Eliminar de la base de datos', 'Fue eliminado correctamente', 'error')
 });
+
+function showToast() {
+  Toastify({
+    text: "Se agregó un nuevo invitado.",
+    duration: 3000,
+    gravity: "top", // `top` or `bottom`
+    position: "right", // `left`, `center` or `right`
+    stopOnFocus: false, // Prevents dismissing of toast on hover
+    style: {
+      background: "linear-gradient(to right, #00b09b, #96c93d)",
+    },
+    onClick: function () { } // Callback after click
+  }).showToast();
+}
+
+function showSwal(title, msj, type) {
+  Swal.fire({
+    title: title,
+    text: msj,
+    icon: type,
+    confirmButtonText: 'Aceptar'
+  }).then((result) => {
+    if ((result['isConfirmed']) && (type === 'error')) {
+      localStorage.clear();
+      location.reload();
+    }
+  });
+}
