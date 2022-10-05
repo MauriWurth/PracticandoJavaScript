@@ -20,7 +20,6 @@ form.addEventListener("submit", function (e) {
   if (checkAge(edad)) {
     invitados.push(new Invitado(nombre, edad, genero, colaboracion))
     drawTable();
-    // alert('Invitación creada correctamente.')
     showToast();
   } else {
     alert('Tu edad no está permitida.')
@@ -90,9 +89,9 @@ function showToast() {
   Toastify({
     text: "Se agregó un nuevo invitado.",
     duration: 3000,
-    gravity: "top", // `top` or `bottom`
-    position: "right", // `left`, `center` or `right`
-    stopOnFocus: false, // Prevents dismissing of toast on hover
+    gravity: "top",
+    position: "right",
+    stopOnFocus: false,
     style: {
       background: "linear-gradient(to right, #00b09b, #96c93d)",
     },
@@ -113,3 +112,7 @@ function showSwal(title, msj, type) {
     }
   });
 }
+
+
+
+getCurrentDolar();
