@@ -113,6 +113,18 @@ function showSwal(title, msj, type) {
   });
 }
 
+async function getCurrentDolar(){
+  const data = await fetch('https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd/uyu.json')
+  const dataJson = await data.json();
+ 
+  fechaActual = await dataJson.date;
+  costoActual = await dataJson.uyu;
+  await replaceData(fechaActual, costoActual);
+}
 
+function replaceData(fecha, costo){
+  document.querySelector('.currentDolar').innerHTML = `<p>Actualmente hoy (${fecha}) el dolar equivale a ${parseFloat(costo).toFixed(3)} pesos uruguayos.</p>`;
+}
 
 getCurrentDolar();
+
